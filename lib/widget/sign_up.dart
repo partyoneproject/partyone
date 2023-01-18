@@ -2,21 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:email_validator/email_validator.dart';
 
-class SchoolCertificationScreen extends StatelessWidget {
+class SchoolCertificationScreen extends StatefulWidget {
+  const SchoolCertificationScreen({
+    super.key,
+  });
+
+  @override
+  State<SchoolCertificationScreen> createState() =>
+      _SchoolCertificationScreenState();
+}
+
+class _SchoolCertificationScreenState extends State<SchoolCertificationScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController authenticationNumber = TextEditingController();
   bool isValidEmail = false;
   bool isSendEmail = true;
 
-  SchoolCertificationScreen({
-    super.key,
-  });
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: LoginAppBar('학교 인증'),
+      appBar: const LoginAppBar(title: '학교 인증'),
       body: SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
         child: Padding(
@@ -174,9 +180,10 @@ class SchoolCertificationScreen extends StatelessWidget {
 class LoginAppBar extends StatelessWidget with PreferredSizeWidget {
   final String title;
 
-  LoginAppBar(
-    this.title,
-  );
+  const LoginAppBar({
+    super.key,
+    required this.title,
+  });
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -215,7 +222,7 @@ class _SignUpTypeInfoState extends State<TypeInfoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: LoginAppBar('회원가입'),
+      appBar: const LoginAppBar(title: '회원가입'),
       body: SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
         child: Padding(
@@ -523,7 +530,7 @@ class _AgreementScreenState extends State<AgreementScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: LoginAppBar('약관동의'),
+        appBar: const LoginAppBar(title: '약관동의'),
         body: SingleChildScrollView(
           physics: const NeverScrollableScrollPhysics(),
           child: Padding(
@@ -708,7 +715,7 @@ class _InterestScreenState extends State<InterestScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: LoginAppBar('관심분야 설정'),
+      appBar: const LoginAppBar(title: '관심분야 설정'),
       body: SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
         child: Padding(
