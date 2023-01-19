@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_email_sender/flutter_email_sender.dart';
-import 'package:email_validator/email_validator.dart';
 
 class SchoolCertificationScreen extends StatefulWidget {
   const SchoolCertificationScreen({
@@ -16,7 +14,7 @@ class _SchoolCertificationScreenState extends State<SchoolCertificationScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController authenticationNumber = TextEditingController();
   bool isValidEmail = false;
-  bool isSendEmail = true;
+  bool isSendEmail = false;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +41,12 @@ class _SchoolCertificationScreenState extends State<SchoolCertificationScreen> {
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: TextFormField(
                     controller: emailController,
-                    validator: (value) => EmailValidator.validate(value!)
+                    onChanged: (value) {
+                      validateEmail(emailController.text)!
+                          ? isValidEmail = true
+                          : isValidEmail = false;
+                    },
+                    validator: (value) => validateEmail(value!)!
                         ? null
                         : "Please enter a valid email",
                     style: const TextStyle(fontSize: 14),
@@ -81,10 +84,15 @@ class _SchoolCertificationScreenState extends State<SchoolCertificationScreen> {
                       controller: authenticationNumber,
                       style: const TextStyle(fontSize: 14),
                       decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        hintText: '인증번호를 입력하세요',
-                        hintStyle: TextStyle(color: Colors.grey),
-                      ),
+                          border: InputBorder.none,
+                          hintText: '인증번호를 입력하세요',
+                          hintStyle: TextStyle(color: Colors.grey),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Color(0xffC4C4C4)),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.cyan),
+                          )),
                     ),
                   ),
                 ],
@@ -95,7 +103,9 @@ class _SchoolCertificationScreenState extends State<SchoolCertificationScreen> {
             ],
             isSendEmail
                 ? GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      // 로그인 코드 추가
+                    },
                     child: Container(
                       width: 326,
                       height: 48,
@@ -117,7 +127,12 @@ class _SchoolCertificationScreenState extends State<SchoolCertificationScreen> {
                   )
                 : GestureDetector(
                     onTap: () {
-                      sendEmail(emailController.text);
+                      isValidEmail
+                          ? setState(() {
+                              // 이메일 전송코드 추가
+                              isSendEmail = true;
+                            })
+                          : null;
                     },
                     child: Container(
                       width: 326,
@@ -141,40 +156,77 @@ class _SchoolCertificationScreenState extends State<SchoolCertificationScreen> {
             const SizedBox(
               height: 30,
             ),
-            IntrinsicHeight(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => (const TypeInfoScreen()),
+            isSendEmail
+                ? IntrinsicHeight(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => (const TypeInfoScreen()),
+                              ),
+                            );
+                          },
+                          child: const Text("신규 회원가입   "),
                         ),
-                      );
-                    },
-                    child: const Text("신규 회원가입   "),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        const VerticalDivider(
+                          color: Colors.black,
+                          thickness: 2,
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              // 이메일 전송코드 추가
+                              isSendEmail = true;
+                            });
+                          },
+                          child: const Text("인증번호 재발송"),
+                        ),
+                      ],
+                    ),
+                  )
+                : IntrinsicHeight(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => (const TypeInfoScreen()),
+                              ),
+                            );
+                          },
+                          child: const Text("신규 회원가입   "),
+                        ),
+                      ],
+                    ),
                   ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  const VerticalDivider(
-                    color: Colors.black,
-                    thickness: 2,
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  const Text("인증번호 재발송"),
-                ],
-              ),
-            )
           ]),
         ),
       ),
     );
   }
+}
+
+bool? validateEmail(String? value) {
+  const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
+      r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
+      r'\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@'
+      r'yonsei.ac.kr|ewhain.net';
+  final regex = RegExp(pattern);
+
+  return value!.isNotEmpty && !regex.hasMatch(value) ? false : true;
 }
 
 class LoginAppBar extends StatelessWidget with PreferredSizeWidget {
@@ -214,10 +266,9 @@ class TypeInfoScreen extends StatefulWidget {
 }
 
 class _SignUpTypeInfoState extends State<TypeInfoScreen> {
-  TextEditingController name = TextEditingController();
-  DateTime? _selectedDate;
-
-  final List<bool> _selections = List.generate(2, (_) => false);
+  TextEditingController? name = TextEditingController(); // 이름
+  DateTime? birthDate; // 생년월일
+  final List<bool> gender = List.generate(2, (_) => false); // 성별
 
   @override
   Widget build(BuildContext context) {
@@ -252,6 +303,12 @@ class _SignUpTypeInfoState extends State<TypeInfoScreen> {
                         border: InputBorder.none,
                         hintText: '홍길동',
                         hintStyle: TextStyle(color: Colors.grey),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xffC4C4C4)),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.cyan),
+                        ),
                       ),
                     ),
                   ),
@@ -273,7 +330,7 @@ class _SignUpTypeInfoState extends State<TypeInfoScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       ToggleButtons(
-                        isSelected: _selections,
+                        isSelected: gender,
                         children: [
                           Container(
                             width: (MediaQuery.of(context).size.width - 70) / 2,
@@ -310,8 +367,8 @@ class _SignUpTypeInfoState extends State<TypeInfoScreen> {
                         ],
                         onPressed: (int index) {
                           setState(() {
-                            _selections[index] = !_selections[index];
-                            _selections[(index + 1) % 2] = !_selections[index];
+                            gender[index] = !gender[index];
+                            gender[(index + 1) % 2] = !gender[index];
                           });
                         },
                       ),
@@ -343,12 +400,12 @@ class _SignUpTypeInfoState extends State<TypeInfoScreen> {
                             ),
                             child: Center(
                               child: Text(
-                                _selectedDate == null
+                                birthDate == null
                                     ? 'Open Date Picker'
-                                    : '{$_selectedDate}'.substring(1, 11),
+                                    : '{$birthDate}'.substring(1, 11),
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  color: _selectedDate == null
+                                  color: birthDate == null
                                       ? Colors.grey
                                       : Colors.black,
                                   fontSize: 14,
@@ -366,7 +423,7 @@ class _SignUpTypeInfoState extends State<TypeInfoScreen> {
 
                             future.then((date) {
                               setState(() {
-                                _selectedDate = date;
+                                birthDate = date;
                               });
                             });
                           },
@@ -384,12 +441,18 @@ class _SignUpTypeInfoState extends State<TypeInfoScreen> {
                   Expanded(
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => (const AgreementScreen()),
-                          ),
-                        );
+                        if ((name?.text != '') &
+                            (birthDate != null) &
+                            (gender.contains(true))) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => (const AgreementScreen()),
+                            ),
+                          );
+                        } else {
+                          null;
+                        }
                       },
                       child: Container(
                         width: 326,
@@ -435,7 +498,7 @@ class _Calendar extends State<Calendar> with RestorationMixin {
   @override
   String? get restorationId => widget.restorationId;
 
-  final RestorableDateTime _selectedDate =
+  final RestorableDateTime birthDate =
       RestorableDateTime(DateTime(2021, 7, 25));
   late final RestorableRouteFuture<DateTime?> _restorableDatePickerRouteFuture =
       RestorableRouteFuture<DateTime?>(
@@ -443,7 +506,7 @@ class _Calendar extends State<Calendar> with RestorationMixin {
     onPresent: (NavigatorState navigator, Object? arguments) {
       return navigator.restorablePush(
         _datePickerRoute,
-        arguments: _selectedDate.value.millisecondsSinceEpoch,
+        arguments: birthDate.value.millisecondsSinceEpoch,
       );
     },
   );
@@ -468,7 +531,7 @@ class _Calendar extends State<Calendar> with RestorationMixin {
 
   @override
   void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
-    registerForRestoration(_selectedDate, 'selected_date');
+    registerForRestoration(birthDate, 'selected_date');
     registerForRestoration(
         _restorableDatePickerRouteFuture, 'date_picker_route_future');
   }
@@ -476,10 +539,10 @@ class _Calendar extends State<Calendar> with RestorationMixin {
   void _selectDate(DateTime? newSelectedDate) {
     if (newSelectedDate != null) {
       setState(() {
-        _selectedDate.value = newSelectedDate;
+        birthDate.value = newSelectedDate;
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(
-              'Selected: ${_selectedDate.value.day}/${_selectedDate.value.month}/${_selectedDate.value.year}'),
+              'Selected: ${birthDate.value.day}/${birthDate.value.month}/${birthDate.value.year}'),
         ));
       });
     }
@@ -498,23 +561,6 @@ class _Calendar extends State<Calendar> with RestorationMixin {
       ),
     );
   }
-}
-
-void sendEmail(String recipients) async {
-  // final String recipients;
-  final Email email = Email(
-    body: '',
-    subject: '[PartyOne] 인증번호 발송',
-    recipients: [recipients],
-    cc: [],
-    bcc: [],
-    attachmentPaths: [],
-    isHTML: false,
-  );
-
-  try {
-    await FlutterEmailSender.send(email);
-  } catch (error) {}
 }
 
 class AgreementScreen extends StatefulWidget {
@@ -673,12 +719,14 @@ class _AgreementScreenState extends State<AgreementScreen> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => (const InterestScreen()),
-                      ),
-                    );
+                    isAgreed[2]
+                        ? Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => (const InterestScreen()),
+                            ),
+                          )
+                        : null;
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,
