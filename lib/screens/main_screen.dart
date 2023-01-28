@@ -18,14 +18,34 @@ class _MainScreenState extends State<MainScreen> {
 
   void onClickTab(int idx) {
     setState(() {
-      homeIdx = idx;
+      if (idx == 2) {
+        Navigator.of(context).push(PageRouteBuilder(
+          fullscreenDialog: true,
+          pageBuilder: (_, __, ___) => const UploadScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            const begin = Offset(0.0, 1.0);
+            const end = Offset.zero;
+            var curve = Curves.ease;
+
+            var tween =
+                Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+            return SlideTransition(
+              position: animation.drive(tween),
+              child: child,
+            );
+          },
+        ));
+      } else {
+        homeIdx = idx;
+      }
     });
   }
 
   final List<Widget> homeContents = <Widget>[
     HomeScreen(),
     const SearchScreen(),
-    const UploadScreen(),
+    HomeScreen(),
     const MessageScreen(),
     const UserScreen(),
   ];
