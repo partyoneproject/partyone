@@ -9,7 +9,7 @@ class MessageScreen extends StatelessWidget {
       appBar: AppBar(
           backgroundColor: Colors.white,
           title: const Text(
-            "Message",
+            "친구와 채팅하기",
             style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w600),
           )),
     );

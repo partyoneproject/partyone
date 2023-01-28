@@ -55,7 +55,7 @@ class _MainScreenState extends State<MainScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.messenger_rounded),
-            label: "메세지",
+            label: "채팅",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
