@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:material_tag_editor/tag_editor.dart';
 
 class UploadScreen extends StatefulWidget {
   const UploadScreen({super.key});
@@ -9,6 +13,15 @@ class UploadScreen extends StatefulWidget {
 
 class _UploadScreenState extends State<UploadScreen> {
   DateTime? _selectedDate;
+  XFile? _pickedFile;
+  List<String> values = [];
+
+  void onDelete(int idx) {
+    setState(() {
+      values.removeAt(idx);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,24 +39,37 @@ class _UploadScreenState extends State<UploadScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              InkWell(
-                  onTap: () {
-                    _showBottomSheet();
-                  },
-                  child: Container(
+              // 이미지 선택
+
+              _pickedFile == null
+                  ? Container(
                       height: 180,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
                         color: Colors.grey.withOpacity(0.2),
                       ),
-                      child: const Center(
-                        child: Icon(
-                          Icons.add_a_photo,
-                        ),
-                      ))),
+                      child: InkWell(
+                          onTap: () {
+                            _showBottomSheet();
+                          },
+                          child: const Center(
+                            child: Icon(
+                              Icons.add_a_photo,
+                            ),
+                          )))
+                  : Container(
+                      height: 180,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: Colors.grey.withOpacity(0.2),
+                          image: DecorationImage(
+                              image: FileImage(File(_pickedFile!.path)),
+                              fit: BoxFit.cover)),
+                    ),
               const SizedBox(
                 height: 20,
               ),
+              //파티 이름
               const TextField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -53,6 +79,8 @@ class _UploadScreenState extends State<UploadScreen> {
               const SizedBox(
                 height: 20,
               ),
+
+              //파티 날짜
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -104,11 +132,41 @@ class _UploadScreenState extends State<UploadScreen> {
               const SizedBox(
                 height: 20,
               ),
+              Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  alignment: Alignment.center,
+                  child: TagEditor(
+                    length: values.length,
+                    delimiters: const [',', ' '],
+                    hasAddButton: true,
+                    inputDecoration: const InputDecoration(
+                      border: InputBorder.none,
+                      hintText: '  #해시태그',
+                    ),
+                    onTagChanged: (newValue) {
+                      setState(() {
+                        values.add(newValue);
+                      });
+                    },
+                    tagBuilder: (context, index) => _Chip(
+                      index: index,
+                      label: values[index],
+                      onDeleted: onDelete,
+                    ),
+                  )),
+              const SizedBox(
+                height: 20,
+              ),
+              //파티 설명
+
               const TextField(
                 maxLines: 10,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'contents',
+                  labelText: '파티 설명',
                 ),
               ),
               const SizedBox(
@@ -162,7 +220,7 @@ class _UploadScreenState extends State<UploadScreen> {
               height: 20,
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () => _getPhotoLibraryImage(),
               child: const Text(
                 '앨범에서 사진 선택',
                 style: TextStyle(fontSize: 16),
@@ -175,6 +233,18 @@ class _UploadScreenState extends State<UploadScreen> {
         );
       },
     );
+  }
+
+  _getPhotoLibraryImage() async {
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _pickedFile = pickedFile;
+      });
+    } else {
+      _pickedFile = null;
+    }
   }
 }
 
@@ -254,6 +324,33 @@ class _Calendar extends State<Calendar> with RestorationMixin {
           child: const Text('Open Date Picker'),
         ),
       ),
+    );
+  }
+}
+
+class _Chip extends StatelessWidget {
+  const _Chip({
+    required this.label,
+    required this.onDeleted,
+    required this.index,
+  });
+
+  final String label;
+  final ValueChanged<int> onDeleted;
+  final int index;
+
+  @override
+  Widget build(BuildContext context) {
+    return Chip(
+      labelPadding: const EdgeInsets.only(left: 8.0),
+      label: Text(label),
+      deleteIcon: const Icon(
+        Icons.close,
+        size: 18,
+      ),
+      onDeleted: () {
+        onDeleted(index);
+      },
     );
   }
 }
