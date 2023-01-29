@@ -17,6 +17,7 @@ class _UploadScreenState extends State<UploadScreen> {
   XFile? _pickedFile;
   List<String> values = [];
   int _currentnumofmembers = 0;
+
   void onDelete(int idx) {
     setState(() {
       values.removeAt(idx);
@@ -89,8 +90,7 @@ class _UploadScreenState extends State<UploadScreen> {
               ),
               const SizedBox(
                 height: 20,
-              ),
-              //인원 수
+              ), //인원 수
               Container(
                   height: 40,
                   width: double.infinity,
