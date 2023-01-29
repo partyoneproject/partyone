@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:partyone_mobile/models/announcement_data.dart';
+import 'package:partyone/models/announcement_data.dart';
 
 class AnnouncementDetail extends StatefulWidget {
   final int announcementId;

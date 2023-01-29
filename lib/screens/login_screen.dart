@@ -21,6 +21,7 @@ class LoginScreen extends StatelessWidget {
             const SizedBox(
               height: 170,
             ),
+            //회원가입
             GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -51,34 +52,33 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
             GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SchoolCertificationScreen(),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SchoolCertificationScreen(),
+                    ),
+                  );
+                },
+                child: Container(
+                  width: 300,
+                  height: 50,
+                  margin: const EdgeInsets.only(
+                    bottom: 10,
                   ),
-                );
-              },
-              child: Container(
-                width: 300,
-                height: 50,
-                margin: const EdgeInsets.only(
-                  bottom: 10,
-                ),
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                    border: Border.all(color: const Color(0xffA5A5A5)),
-                    borderRadius: BorderRadius.circular(5),
-                    color: const Color(0xffA5A5A5)),
-                child: const Text(
-                  "로그인",
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Color(0xffffffff),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: const Color(0xffA5A5A5)),
+                      borderRadius: BorderRadius.circular(5),
+                      color: const Color(0xffA5A5A5)),
+                  child: const Text(
+                    "로그인",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Color(0xffffffff),
+                    ),
                   ),
-                ),
-              ),
-            )
+                )),
           ]),
         ],
       ),

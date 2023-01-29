@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:partyone_mobile/models/announcement_data.dart';
-import 'package:partyone_mobile/screens/announcement_detail.dart';
-import 'package:partyone_mobile/screens/create_announcement.dart';
+import 'package:partyone/models/announcement_data.dart';
+import 'package:partyone/screens/announcement_detail.dart';
+import 'package:partyone/screens/create_announcement.dart';
 
 class Announcement extends StatelessWidget {
   const Announcement({super.key});
@@ -16,7 +16,7 @@ class Announcement extends StatelessWidget {
             builder: (context) => const CreateAnnouncement(),
           ),
         ),
-        child: const Icon(Icons.plus_one),
+        child: const Icon(Icons.add),
       ),
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -30,8 +30,8 @@ class Announcement extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           return Container(
               padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                border: Border.all(width: 0.5),
+              decoration: const BoxDecoration(
+                border: Border(bottom: BorderSide(width: 0.3)),
               ),
               height: 60,
               child: InkWell(

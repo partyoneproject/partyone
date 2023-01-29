@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:partyone/screens/tab_screen/home_screen.dart';
 
 class SchoolCertificationScreen extends StatelessWidget {
   TextEditingController emailController = TextEditingController();
@@ -89,7 +90,14 @@ class SchoolCertificationScreen extends StatelessWidget {
             ],
             isSendEmail
                 ? GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomeScreen(),
+                        ),
+                      );
+                    },
                     child: Container(
                       width: 326,
                       height: 48,

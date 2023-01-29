@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:partyone_mobile/widgets/hash_tag.dart';
+import 'package:partyone/widget/hash_tag.dart';
 
 class HobbyLog extends StatelessWidget {
   const HobbyLog({super.key});

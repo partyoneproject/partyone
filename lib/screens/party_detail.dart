@@ -1,314 +1,253 @@
 import 'package:flutter/material.dart';
-import 'package:partyone_mobile/screens/announcement.dart';
-import 'package:partyone_mobile/screens/hobby/hobby_log.dart';
-import 'package:partyone_mobile/screens/member_preview.dart';
+import 'package:partyone/screens/announcement.dart';
+import 'package:partyone/screens/member_preview.dart';
+import 'package:partyone/widget/share.dart';
 
-class PartyDetail extends StatefulWidget {
+class PartyDetail extends StatelessWidget {
   const PartyDetail({super.key});
-
-  @override
-  State<PartyDetail> createState() => _PartyDetailState();
-}
-
-class _PartyDetailState extends State<PartyDetail> {
-  bool boxBoolean = true;
-
-  void boxBooleanToTrue() {
-    setState(() {
-      boxBoolean = true;
-    });
-  }
-
-  void boxBooleanToFalse() {
-    setState(() {
-      boxBoolean = false;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        centerTitle: true,
-        title: const Text("취미팟 이름"),
         actions: [
-          InkWell(
-            onTap: (() => {print('share clicked')}),
-            child: const Icon(Icons.share),
+          IconButton(
+            onPressed: () {
+              shareKakao();
+            },
+            icon: const Icon(Icons.share),
           ),
-          const SizedBox(
-            width: 20,
-          ),
-          InkWell(
-            onTap: (() => {print('heart clicked')}),
-            child: const Icon(Icons.heart_broken_rounded),
-          ),
-          const SizedBox(
-            width: 20,
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.heart_broken),
           ),
         ],
+        title: const Text('축구'),
       ),
       body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.symmetric(
-            vertical: 40,
-            horizontal: 40,
-          ),
-          child:
-              //전체 Column
-              Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const HobbyLog()));
-                },
-                child: AspectRatio(
-                  aspectRatio: 4 / 2,
-                  child: Container(
-                    height: MediaQuery.of(context).size.height / 3.5,
-                    decoration: BoxDecoration(
-                      image: const DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage('assets/images/soccer.jpg'),
-                      ),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                  ),
+        child: Column(
+          children: [
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 8 / 33,
+              child: const Image(
+                image: AssetImage('assets/images/soccer.jpg'),
+                fit: BoxFit.cover,
+              ),
+            ),
+            Container(
+              alignment: Alignment.topLeft,
+              padding: const EdgeInsets.fromLTRB(20, 20, 5, 20),
+              decoration: const BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(width: 0.2),
                 ),
               ),
-              const SizedBox(
-                height: 20,
+              child: const Text(
+                "축구 용병 2명 구합니다",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
-              captinContainer(boxBoolean),
-              const SizedBox(
-                height: 20,
+            ),
+            Container(
+              alignment: Alignment.topLeft,
+              padding: const EdgeInsets.fromLTRB(20, 20, 5, 20),
+              decoration: const BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(width: 0.2),
+                ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Row(
+                children: [
+                  const Icon(Icons.calendar_month),
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          "토요일, 2월 4, 2023",
+                          style: TextStyle(
+                            fontSize: 15,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "오후 2:00 - 오후 5:00",
+                          style: TextStyle(
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              alignment: Alignment.topLeft,
+              padding: const EdgeInsets.fromLTRB(20, 20, 5, 20),
+              decoration: const BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(width: 0.2),
+                ),
+              ),
+              child: Row(
+                children: [
+                  const Icon(Icons.where_to_vote_rounded),
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          "Yonsei University",
+                          style: TextStyle(
+                            fontSize: 15,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "서울특별시 서대문구 연세로 50",
+                          style: TextStyle(
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              alignment: Alignment.topLeft,
+              padding: const EdgeInsets.fromLTRB(20, 20, 5, 20),
+              decoration: const BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(width: 0.2),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   InkWell(
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: ((context) => (const Announcement())),
-                      ),
-                    ),
-                    child: Container(
-                      alignment: Alignment.center,
-                      width: MediaQuery.of(context).size.width / 2 - 50,
-                      height: 30,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: Colors.green.shade700),
-                      child: const Text(
-                        "공지",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
+                    onTap: () {},
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text("주최"),
+                        const SizedBox(
+                          height: 5,
                         ),
-                      ),
+                        partyCaptinProfile(),
+                      ],
                     ),
                   ),
                   InkWell(
-                    onTap: () => {
+                    onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => const MemberPreview(),
                         ),
-                      )
+                      );
                     },
-                    child: Container(
-                      alignment: Alignment.center,
-                      width: MediaQuery.of(context).size.width / 2 - 50,
-                      height: 30,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: Colors.green.shade300),
-                      child: const Text(
-                        "멤버",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text("참석"),
+                        const SizedBox(
+                          height: 5,
                         ),
-                      ),
+                        partyOneProfiles(),
+                      ],
                     ),
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              AspectRatio(
-                aspectRatio: 1 / 1,
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(width: 0.5),
-                    borderRadius: BorderRadius.circular(5),
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Announcement()));
+              },
+              child: Container(
+                alignment: Alignment.topLeft,
+                padding: const EdgeInsets.fromLTRB(20, 20, 5, 20),
+                decoration: const BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(width: 0.2),
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              InkWell(
-                onTap: () => print('가입 클릭'),
-                child: Container(
-                  alignment: Alignment.center,
-                  width: MediaQuery.of(context).size.width / 2,
-                  height: 30,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: Colors.grey.shade300,
-                  ),
-                  child: const Text(
-                    '가입',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
+                child: Row(
+                  children: const [
+                    Text(
+                      '공지사항',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                  ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.black54,
+                    ),
+                  ],
                 ),
-              )
-            ],
-          ),
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
+}
 
-//파티장 박스 옆에 버튼 누르면 변경되게 하는 것.
-  Widget captinContainer(bool boolean) {
-    if (boolean) {
-      return AspectRatio(
-        aspectRatio: 4 / 1,
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-          height: MediaQuery.of(context).size.height / 8,
-          decoration: BoxDecoration(
-            border: Border.all(width: 0.5),
-            borderRadius: BorderRadius.circular(5),
-          ),
-          child:
-              //container안 전체 Row
-              Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              //이 Row는 파티장 프로필하고 버튼을 양쪽으로 이분하기 위한 용도
-              Row(
-                children: [
-                  //이 컨테이너는 파티장 프로필 사진과 이름 학교를 넣는 용도
-                  Container(
-                    width: MediaQuery.of(context).size.height / 16,
-                    height: MediaQuery.of(context).size.height / 16,
-                    decoration: BoxDecoration(
-                      image: const DecorationImage(
-                        fit: BoxFit.fill,
-                        image: AssetImage('assets/images/profile.jpg'),
-                      ),
-                      borderRadius: BorderRadius.circular(400),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text(
-                        "파티장",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text("연세대학교"),
-                    ],
-                  )
-                ],
-              ),
-              InkWell(
-                onTap: boxBooleanToFalse,
-                child: const Icon(Icons.keyboard_arrow_down),
-              )
-            ],
-          ),
+CircleAvatar partyCaptinProfile() {
+  return CircleAvatar(
+    backgroundColor: Colors.green.shade400,
+    radius: 16,
+  );
+}
+
+Stack partyOneProfiles() {
+  return Stack(
+    children: partyOneProfile(5),
+  );
+}
+
+List<Widget> partyOneProfile(int count) {
+  List<Widget> result = [];
+
+  for (var i = 0; i < count; i++) {
+    result.add(
+      Container(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: i * 20.toDouble(),
+            ),
+            CircleAvatar(
+              backgroundColor:
+                  Colors.green.withOpacity((i + 2) / 10.toDouble()),
+              radius: 16,
+            ),
+          ],
         ),
-      );
-    } else {
-      return AspectRatio(
-        aspectRatio: 5 / 3,
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-          height: MediaQuery.of(context).size.height / 4,
-          decoration: BoxDecoration(
-            border: Border.all(width: 0.5),
-            borderRadius: BorderRadius.circular(5),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.height / 16,
-                        height: MediaQuery.of(context).size.height / 16,
-                        decoration: BoxDecoration(
-                          image: const DecorationImage(
-                            fit: BoxFit.fill,
-                            image: AssetImage('assets/images/profile.jpg'),
-                          ),
-                          borderRadius: BorderRadius.circular(400),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text(
-                            "파티장",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text("연세대학교"),
-                        ],
-                      )
-                    ],
-                  ),
-                  InkWell(
-                    onTap: boxBooleanToTrue,
-                    child: const Icon(Icons.keyboard_arrow_up),
-                  )
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
-                  Text('하...하...하...'),
-                ],
-              )
-            ],
-          ),
-        ),
-      );
-    }
+      ),
+    );
   }
+  return result;
 }
