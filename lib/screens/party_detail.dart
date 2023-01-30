@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:partyone/screens/announcement.dart';
 import 'package:partyone/screens/member_preview.dart';
+import 'package:partyone/widget/kakao_map.dart';
 import 'package:partyone/widget/share.dart';
 
 class PartyDetail extends StatelessWidget {
@@ -121,6 +122,18 @@ class PartyDetail extends StatelessWidget {
                         ),
                       ],
                     ),
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const KakaoMapScreen()));
+                    },
+                    child: const Icon(Icons.arrow_forward_ios_rounded),
                   ),
                 ],
               ),
