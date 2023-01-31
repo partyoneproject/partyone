@@ -39,36 +39,9 @@ class MemberPreview extends StatelessWidget {
                       style:
                           TextStyle(fontWeight: FontWeight.w600, fontSize: 24),
                     ),
-                    Text(
-                      "연세대학교",
-                      style: TextStyle(fontSize: 18),
-                    )
                   ],
                 ),
               )
-            ],
-          ),
-        ),
-
-        ///관리자
-
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                "관리자",
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              Row(children: const [
-                MemberComponenet(),
-                MemberComponenet(),
-              ]),
             ],
           ),
         ),
@@ -80,7 +53,7 @@ class MemberPreview extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                "활동부원",
+                "파티 참여원",
                 style: TextStyle(
                   fontSize: 24,
                   color: Colors.black,

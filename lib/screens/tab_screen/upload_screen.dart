@@ -24,14 +24,8 @@ class _UploadScreenState extends State<UploadScreen> {
     });
   }
 
-  late NumberPicker integerNumberPicker;
-
   _handleValueChanged(int value) {
     setState(() => _currentnumofmembers = value);
-
-    _handleValueChangedExternally(int value) {
-      setState(() => _currentnumofmembers = value);
-    }
   }
 
   @override

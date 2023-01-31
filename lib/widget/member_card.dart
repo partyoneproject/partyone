@@ -26,8 +26,6 @@ class MemberComponenet extends StatelessWidget {
               "이름",
               style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
             ),
-            const Text("연세대학교",
-                style: TextStyle(fontSize: 8, fontWeight: FontWeight.w600))
           ],
         ),
       ),
