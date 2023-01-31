@@ -11,17 +11,14 @@ class KakaoMapScreen extends StatefulWidget {
 class _KakaoMapScreenState extends State<KakaoMapScreen> {
   @override
   Widget build(BuildContext context) {
-    Set<Marker> markers = {};
     return Scaffold(
       appBar: AppBar(),
       body: KakaoMap(
-        onMapCreated: ((controller) async {
-          markers.add(Marker(
-              markerId: UniqueKey().toString(),
-              latLng: await controller.getCenter()));
-          setState(() {});
-        }),
-        markers: markers.toList(),
+        markers: [
+          Marker(
+              markerId: "basic",
+              latLng: LatLng(37.564088999999996, 126.93898089999999))
+        ],
         center: LatLng(37.564088999999996, 126.93898089999999),
       ),
     );

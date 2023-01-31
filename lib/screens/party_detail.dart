@@ -3,6 +3,7 @@ import 'package:partyone/screens/announcement.dart';
 import 'package:partyone/screens/member_preview.dart';
 import 'package:partyone/widget/kakao_map.dart';
 import 'package:partyone/widget/share.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PartyDetail extends StatelessWidget {
   const PartyDetail({super.key});
@@ -135,6 +136,16 @@ class PartyDetail extends StatelessWidget {
                     },
                     child: const Icon(Icons.arrow_forward_ios_rounded),
                   ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      KakaoMaplaunch(
+                          '37.564088999999996', '126.93898089999999');
+                    },
+                    child: const Icon(Icons.kayaking_rounded),
+                  ),
                 ],
               ),
             ),
@@ -263,4 +274,10 @@ List<Widget> partyOneProfile(int count) {
     );
   }
   return result;
+}
+
+Future<void> KakaoMaplaunch(String latitude, String longitude) async {
+  if (!await launchUrl(Uri.parse('kakaomap://look?p=$latitude,$longitude'))) {
+    throw Exception('Could not launch');
+  }
 }
