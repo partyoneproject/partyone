@@ -113,6 +113,7 @@ class _UploadScreenState extends State<UploadScreen> {
                               setState(() {
                                 currentAddress = result.address;
                               });
+
                               print(result.latitude);
                               print(result.longitude);
                             },
