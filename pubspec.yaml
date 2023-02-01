@@ -90,12 +90,22 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-      - family: basicfont
+      - family: Humanbumseok
         fonts:
           - asset : assets/fonts/Humanbumseok-Regular.ttf
           - asset : assets/fonts/Humanbumseok-SemiBold.ttf
             weight : 700
           - asset : assets/fonts/Humanbumseok-Light.ttf
+            weight : 300
+      - family: SimKyungha
+        fonts:
+          - asset : assets/fonts/SimKyungha.ttf
+      - family: NanumSquareNeo
+        fonts:
+          - asset : assets/fonts/NanumSquareNeo-bRg.ttf
+          - asset : assets/fonts/NanumSquareNeo-cBd.ttf
+            weight : 700
+          - asset : assets/fonts/NanumSquareNeo-aLt.ttf
             weight : 300
   #   - family: Schyler
   #     fonts:
