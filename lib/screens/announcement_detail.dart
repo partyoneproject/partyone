@@ -33,11 +33,19 @@ class _AnnouncementDetailState extends State<AnnouncementDetail> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('${announcementData[idx]["When"]}'),
+            Text(
+              '${announcementData[idx]["When"]}',
+              style: const TextStyle(fontSize: 18),
+            ),
             const SizedBox(
               height: 10,
             ),
-            Text('${announcementData[idx]["contents"]}'),
+            Text(
+              '${announcementData[idx]["contents"]}',
+              style: const TextStyle(
+                fontSize: 16,
+              ),
+            ),
           ],
         ),
       ),

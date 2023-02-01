@@ -34,11 +34,17 @@ class _NotificationDetailState extends State<NotificationDetail> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('${notificationData[idx]["When"]}'),
+            Text(
+              '${notificationData[idx]["When"]}',
+              style: const TextStyle(fontSize: 18),
+            ),
             const SizedBox(
               height: 10,
             ),
-            Text('${notificationData[idx]["contents"]}'),
+            Text(
+              '${notificationData[idx]["contents"]}',
+              style: const TextStyle(fontSize: 16),
+            ),
           ],
         ),
       ),

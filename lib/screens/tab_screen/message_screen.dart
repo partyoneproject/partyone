@@ -8,8 +8,55 @@ class MessageScreen extends StatefulWidget {
 }
 
 class _MessageScreenState extends State<MessageScreen> {
-  final friendlist = ['이상민', '신재현', '최성범', '박찬혁', '이수민'];
-  final partylist = ['축구', '농구', '탁구', '술', '저녁', '양자역학', '전자기학'];
+  final friendlist = [
+    '이상민',
+    '신재현',
+    '최성범',
+    '박찬혁',
+    '이수민',
+    '이명박',
+    '박근혜',
+    '문재인',
+    '윤석열'
+  ];
+  final partylist = [
+    '축구',
+    '농구',
+    '탁구',
+    '술',
+    '저녁',
+    '양자역학',
+    '전자기학',
+    '고체물리학',
+    '반도체 소자물리'
+  ];
+  bool friendBool = false;
+  bool partyBool = false;
+
+  void friendBoolToFalse() {
+    setState(() {
+      friendBool = false;
+    });
+  }
+
+  void friendBoolToTrue() {
+    setState(() {
+      friendBool = true;
+    });
+  }
+
+  void partyBoolToFalse() {
+    setState(() {
+      partyBool = false;
+    });
+  }
+
+  void partyBoolToTrue() {
+    setState(() {
+      partyBool = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,54 +69,102 @@ class _MessageScreenState extends State<MessageScreen> {
       body: Column(
         children: [
           Container(
+            alignment: Alignment.bottomLeft,
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.fromLTRB(20, 15, 15, 10),
-            decoration: const BoxDecoration(
-              border: Border(
-                bottom: BorderSide(width: 0.8),
-              ),
+            decoration: BoxDecoration(
+              color: const Color(0xFF1766FF).withOpacity(0.1),
+              // border: const Border(
+              //   bottom: BorderSide(width: 0.8),
+              // ),
             ),
-            child: const Text(
-              '친구 목록',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  '친구 목록',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                friendBool
+                    ? InkWell(
+                        onTap: () {
+                          friendBoolToFalse();
+                        },
+                        child: const Icon(
+                          Icons.keyboard_arrow_up_rounded,
+                        ),
+                      )
+                    : InkWell(
+                        onTap: () {
+                          friendBoolToTrue();
+                        },
+                        child: const Icon(
+                          Icons.keyboard_arrow_down_rounded,
+                        ),
+                      )
+              ],
             ),
           ),
-          SingleChildScrollView(
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height / 2 - 130,
-              child: ListView(
-                children: MakeListViewChildrenOfFriendList(friendlist, context),
-              ),
-            ),
-          ),
+          friendBool
+              ? Expanded(
+                  child: ListView(
+                    children:
+                        MakeListViewChildrenOfFriendList(friendlist, context),
+                  ),
+                )
+              : Container(),
           Container(
+            alignment: Alignment.bottomLeft,
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.fromLTRB(20, 15, 15, 10),
-            decoration: const BoxDecoration(
-              border: Border(
-                top: BorderSide(width: 0.8),
-                bottom: BorderSide(width: 0.8),
-              ),
+            decoration: BoxDecoration(
+              color: const Color(0xFF1766FF).withOpacity(0.2),
+              //   border: Border(
+              //     top: BorderSide(width: 0.8),
+              //     bottom: BorderSide(width: 0.8),
+              //   ),
             ),
-            child: const Text(
-              '파티 목록',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  '파티 목록',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                partyBool
+                    ? InkWell(
+                        onTap: () {
+                          partyBoolToFalse();
+                        },
+                        child: const Icon(
+                          Icons.keyboard_arrow_up_rounded,
+                        ),
+                      )
+                    : InkWell(
+                        onTap: () {
+                          partyBoolToTrue();
+                        },
+                        child: const Icon(
+                          Icons.keyboard_arrow_down_rounded,
+                        ),
+                      )
+              ],
             ),
           ),
-          //리스트 뷰를 쓰려면 사이즈를 지정해야하는데, 꽉차게 만들라면 어떻게해야하지?
-
-          Expanded(
-            //height: MediaQuery.of(context).size.height / 2 - 130,
-            child: ListView(
-              children: MakeListViewChildrenOfPartyList(partylist, context),
-            ),
-          ),
+          partyBool
+              ? Expanded(
+                  child: ListView(
+                    children:
+                        MakeListViewChildrenOfPartyList(partylist, context),
+                  ),
+                )
+              : Container()
         ],
       ),
     );
@@ -84,7 +179,7 @@ List<Widget> MakeListViewChildrenOfFriendList(friendlist, context) {
         padding: const EdgeInsets.fromLTRB(20, 15, 15, 10),
         decoration: const BoxDecoration(
           border: Border(
-            bottom: BorderSide(width: 0.4),
+            bottom: BorderSide(width: 0.2),
           ),
         ),
         child: InkWell(
@@ -123,7 +218,7 @@ List<Widget> MakeListViewChildrenOfPartyList(partylist, context) {
         padding: const EdgeInsets.fromLTRB(20, 15, 15, 10),
         decoration: const BoxDecoration(
           border: Border(
-            bottom: BorderSide(width: 0.4),
+            bottom: BorderSide(width: 0.2),
           ),
         ),
         child: InkWell(
