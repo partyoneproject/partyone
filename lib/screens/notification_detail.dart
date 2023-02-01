@@ -24,8 +24,7 @@ class _NotificationDetailState extends State<NotificationDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        backgroundColor: Theme.of(context).primaryColor,
         centerTitle: true,
         title: Text('${notificationData[idx]["Title"]}'),
       ),

@@ -17,8 +17,7 @@ class _CreateAnnouncementState extends State<CreateAnnouncement> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        backgroundColor: Theme.of(context).primaryColor,
         centerTitle: true,
         title: const Text('공지사항 추가'),
       ),

@@ -9,8 +9,7 @@ class NotificationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        backgroundColor: Theme.of(context).primaryColor,
         centerTitle: true,
         title: const Text('공지 알람'),
       ),
@@ -19,11 +18,10 @@ class NotificationScreen extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         itemBuilder: (BuildContext context, int index) {
           return Container(
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
               decoration: const BoxDecoration(
                 border: Border(bottom: BorderSide(width: 0.3)),
               ),
-              height: 60,
               child: InkWell(
                 onTap: () => Navigator.push(
                   context,
@@ -43,11 +41,11 @@ class NotificationScreen extends StatelessWidget {
                           '${notificationData[index]["Title"]}',
                           style: const TextStyle(
                             fontSize: 16,
-                            fontWeight: FontWeight.w600,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         const SizedBox(
-                          height: 3,
+                          height: 10,
                         ),
                         shortenText2(index),
                       ],

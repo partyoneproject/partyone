@@ -28,11 +28,10 @@ class Announcement extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         itemBuilder: (BuildContext context, int index) {
           return Container(
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
               decoration: const BoxDecoration(
                 border: Border(bottom: BorderSide(width: 0.3)),
               ),
-              height: 60,
               child: InkWell(
                 onTap: () => Navigator.push(
                   context,
@@ -52,11 +51,11 @@ class Announcement extends StatelessWidget {
                           '${announcementData[index]["Title"]}',
                           style: const TextStyle(
                             fontSize: 16,
-                            fontWeight: FontWeight.w600,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         const SizedBox(
-                          height: 3,
+                          height: 10,
                         ),
                         shortenText(index),
                       ],
