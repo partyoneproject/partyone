@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:kpostal/kpostal.dart';
 import 'package:material_tag_editor/tag_editor.dart';
 import 'package:numberpicker/numberpicker.dart';
 
@@ -13,6 +14,7 @@ class UploadScreen extends StatefulWidget {
 }
 
 class _UploadScreenState extends State<UploadScreen> {
+  String currentAddress = "장소를 입력해 주세요";
   DateTime? _selectedDate;
   XFile? _pickedFile;
   List<String> values = [];
@@ -22,10 +24,6 @@ class _UploadScreenState extends State<UploadScreen> {
     setState(() {
       values.removeAt(idx);
     });
-  }
-
-  _handleValueChanged(int value) {
-    setState(() => _currentnumofmembers = value);
   }
 
   @override
@@ -94,7 +92,37 @@ class _UploadScreenState extends State<UploadScreen> {
                   child: InkWell(
                       onTap: () => _showIntegerDialog(),
                       child: Text("$_currentnumofmembers명"))),
+              //장소 설정
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: ((context) => KpostalView(
+                            callback: (result) {
+                              setState(() {
+                                currentAddress = result.address;
+                              });
 
+                              print(result.latitude);
+                              print(result.longitude);
+                            },
+                          )),
+                    ),
+                  );
+                },
+                child: Container(
+                  height: 40,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    border: Border.all(),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Center(
+                    child: Text(currentAddress),
+                  ),
+                ),
+              ),
               //파티 날짜
               Row(
                 children: [
@@ -219,28 +247,46 @@ class _UploadScreenState extends State<UploadScreen> {
 
   Future _showIntegerDialog() async {
     await showDialog<int>(
-      barrierLabel: "파티인원수",
-      context: context,
-      builder: (BuildContext context) {
-        return Column(
-          children: [
-            NumberPicker(
-              minValue: 0,
-              maxValue: 30,
-              step: 1,
-              value: _currentnumofmembers,
-              onChanged: _handleValueChanged,
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.7),
             ),
-            TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text("확인"))
-            //TODO 변수하나 더 둬서 취소 버튼추가하기
-          ],
-        );
-      },
-    );
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                StatefulBuilder(builder: (context, sbsetState) {
+                  return NumberPicker(
+                      minValue: 0,
+                      maxValue: 30,
+                      step: 1,
+                      value: _currentnumofmembers,
+                      onChanged: (value) {
+                        setState(() {
+                          _currentnumofmembers = value;
+                        });
+                        sbsetState(() {
+                          _currentnumofmembers = value;
+                        });
+                      });
+                }
+
+                    //TODO 변수하나 더 둬서 취소 버튼추가하기
+
+                    ),
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text(
+                      "확인",
+                      style: TextStyle(fontSize: 18),
+                    ))
+              ],
+            ),
+          );
+        });
   }
 
   _showBottomSheet() {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:partyone/models/party_model.dart';
 import 'package:partyone/services/api_service.dart';
+import 'package:partyone/screens/notification_screen.dart';
 import 'package:partyone/widget/party_list.dart';
 import 'package:partyone/widget/share.dart';
 
@@ -19,7 +20,14 @@ class HomeScreen extends StatelessWidget {
         ),
         actions: [
           InkWell(
-            onTap: (() => {}),
+            onTap: () => {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const NotificationScreen(),
+                ),
+              ),
+            },
             child: const Icon(
               Icons.notification_important_outlined,
               color: Colors.black,
