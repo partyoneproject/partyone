@@ -19,8 +19,7 @@ class Announcement extends StatelessWidget {
         child: const Icon(Icons.add),
       ),
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        backgroundColor: Theme.of(context).primaryColor,
         centerTitle: true,
         title: const Text('공지사항'),
       ),

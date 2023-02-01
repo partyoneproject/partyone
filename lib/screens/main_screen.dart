@@ -14,7 +14,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int homeIdx = 4;
+  int homeIdx = 1;
 
   void onClickTab(int idx) {
     setState(() {

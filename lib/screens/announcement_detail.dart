@@ -24,8 +24,7 @@ class _AnnouncementDetailState extends State<AnnouncementDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        backgroundColor: Theme.of(context).primaryColor,
         centerTitle: true,
         title: Text('${announcementData[idx]["Title"]}'),
       ),
