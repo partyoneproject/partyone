@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:partyone/models/party_model.dart';
+import 'package:partyone/screens/setting_screen.dart';
 import 'package:partyone/services/api_service.dart';
 import 'package:partyone/widget/hash_tag.dart';
 import 'package:partyone/widget/party_card.dart';
@@ -202,7 +203,12 @@ class _UserScreenState extends State<UserScreen> with TickerProviderStateMixin {
                           onPressed: () => {}, icon: const Icon(Icons.edit)),
                       IconButton(
                         icon: const Icon(Icons.settings),
-                        onPressed: () => {},
+                        onPressed: () => {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SettingScreen()))
+                        },
                       )
                     ],
                   ))
