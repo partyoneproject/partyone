@@ -26,8 +26,11 @@ class App extends StatelessWidget {
     return MaterialApp(
       home: const MainScreen(),
       theme: ThemeData(
-        primaryColor: Colors.white,
+        fontFamily: 'NanumSquareNeo',
+        primaryColor: const Color(0xFF1766FF),
         scaffoldBackgroundColor: Colors.white,
+        colorScheme: ColorScheme.fromSwatch()
+            .copyWith(secondary: const Color(0xff002c92)),
       ),
     );
   }

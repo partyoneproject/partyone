@@ -24,8 +24,7 @@ class _NotificationDetailState extends State<NotificationDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        backgroundColor: Theme.of(context).primaryColor,
         centerTitle: true,
         title: Text('${notificationData[idx]["Title"]}'),
       ),
@@ -34,11 +33,17 @@ class _NotificationDetailState extends State<NotificationDetail> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('${notificationData[idx]["When"]}'),
+            Text(
+              '${notificationData[idx]["When"]}',
+              style: const TextStyle(fontSize: 18),
+            ),
             const SizedBox(
               height: 10,
             ),
-            Text('${notificationData[idx]["contents"]}'),
+            Text(
+              '${notificationData[idx]["contents"]}',
+              style: const TextStyle(fontSize: 16),
+            ),
           ],
         ),
       ),
