@@ -34,7 +34,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            width: 10,
+            width: 20,
           ),
           InkWell(
             onTap: (() => {marketUrlShare()}),
@@ -44,7 +44,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            width: 10,
+            width: 20,
           ),
         ],
         backgroundColor: Colors.white,

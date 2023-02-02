@@ -14,6 +14,7 @@ class _MessageScreenState extends State<MessageScreen> {
     '최성범',
     '박찬혁',
     '이수민',
+    '노무현',
     '이명박',
     '박근혜',
     '문재인',
@@ -81,9 +82,9 @@ class _MessageScreenState extends State<MessageScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  '친구 목록',
-                  style: TextStyle(
+                Text(
+                  '친구 목록(${friendlist.length})',
+                  style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
                   ),
@@ -130,9 +131,9 @@ class _MessageScreenState extends State<MessageScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  '파티 목록',
-                  style: TextStyle(
+                Text(
+                  '파티 목록(${partylist.length})',
+                  style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
                   ),
