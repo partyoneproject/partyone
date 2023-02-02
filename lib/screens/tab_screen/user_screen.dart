@@ -44,8 +44,7 @@ class _UserScreenState extends State<UserScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
       body: NestedScrollView(
         controller: scrollController,
         headerSliverBuilder: headerSliverBuilder,
@@ -54,7 +53,7 @@ class _UserScreenState extends State<UserScreen> with TickerProviderStateMixin {
           child: mainPageView(),
         ),
       ),
-    ));
+    );
   }
 
   List<Widget> headerSliverBuilder(
@@ -77,19 +76,11 @@ class _UserScreenState extends State<UserScreen> with TickerProviderStateMixin {
 
   Widget minTopChild() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Expanded(
-          child: Container(
-            alignment: Alignment.center,
-            color: const Color(0xFF014F90),
-            // child: const Text(
-            //   "Min Top Bar",
-            //   style: TextStyle(
-            //     color: Color(0xFFFFFFFF),
-            //     fontSize: 23,
-            //   ),
-            // ),
-          ),
+        const Text(
+          "활동",
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
         ),
         pageButtonLayout(),
       ],
@@ -227,10 +218,10 @@ class _UserScreenState extends State<UserScreen> with TickerProviderStateMixin {
       height: sliverMinHeight / 2,
       child: Row(
         children: <Widget>[
-          Expanded(child: pageButton("page 1", 0)),
-          Expanded(child: pageButton("page 2", 1)),
-          Expanded(child: pageButton("page 3", 2)),
-          Expanded(child: pageButton("page 4", 3)),
+          Expanded(child: pageButton("모든 파티", 0)),
+          Expanded(child: pageButton("파티장", 1)),
+          Expanded(child: pageButton("파티원", 2)),
+          Expanded(child: pageButton("달력", 3)),
         ],
       ),
     );
@@ -279,6 +270,31 @@ class _UserScreenState extends State<UserScreen> with TickerProviderStateMixin {
     return PageView(
       controller: pageController,
       children: <Widget>[
+        pageItem(
+          CustomScrollView(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              slivers: [
+                SliverGrid(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    //     widget.categoryVariables[widget.partyCategory]!["crossAxisCount"]!,
+                    mainAxisExtent: 256,
+                  ),
+                  delegate: SliverChildBuilderDelegate(
+                    childCount: data.length,
+                    (BuildContext context, int index) {
+                      return PartyCard(
+                          //widget.categoryVariables[widget.partyCategory]!["aspectRatio"],
+                          partyName: data[index]["Name"],
+                          partyWhen: data[index]["When"],
+                          partyWhere: data[index]["Where"],
+                          partyImage: data[index]["img"]);
+                    },
+                  ),
+                ),
+              ]),
+        ),
         pageItem(CustomScrollView(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
@@ -303,12 +319,6 @@ class _UserScreenState extends State<UserScreen> with TickerProviderStateMixin {
               ),
             ])),
         pageItem(const Center(
-          child: Text(
-            "page 2\n\n두번재\n\n페이지\n\n스크롤이\n\n되도록\n\n내용을\n\n길게\n\n길게",
-            style: TextStyle(fontSize: 50),
-          ),
-        )),
-        pageItem(const Center(
           child: Text("page 3"),
         )),
         pageItem(const Center(
@@ -329,54 +339,6 @@ class _UserScreenState extends State<UserScreen> with TickerProviderStateMixin {
         color: Colors.white,
         constraints: BoxConstraints(minHeight: minHeight),
         child: child,
-      ),
-    );
-  }
-}
-
-class UserWidget extends StatelessWidget {
-  const UserWidget({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            "박찬혁",
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 24,
-            ),
-          ),
-          const Text(
-            "I'm  an  ACE",
-            style: TextStyle(
-              fontSize: 14,
-            ),
-          ),
-          Row(
-            children: const [
-              HashTag(hashtag: "개발"),
-              HashTag(hashtag: "백엔드"),
-              HashTag(hashtag: "인공지능"),
-              HashTag(hashtag: "술"),
-              HashTag(hashtag: "INTP"),
-            ],
-          ),
-          Row(
-            children: const [
-              Text(
-                "연세대학교/ 전기전자공학부",
-                style: TextStyle(color: Colors.black38),
-              )
-            ],
-          )
-        ],
       ),
     );
   }

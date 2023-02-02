@@ -14,7 +14,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int homeIdx = 4;
+  int homeIdx = 0;
 
   void onClickTab(int idx) {
     setState(() {
@@ -55,6 +55,9 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       body: homeContents.elementAt(homeIdx),
       bottomNavigationBar: BottomNavigationBar(
+        // selectedFontSize: 12.0,
+        // unselectedFontSize: 12.0,
+        type: BottomNavigationBarType.fixed,
         onTap: onClickTab,
         currentIndex: homeIdx,
         showUnselectedLabels: true,

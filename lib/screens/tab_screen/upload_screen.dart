@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kpostal/kpostal.dart';
 import 'package:material_tag_editor/tag_editor.dart';
@@ -124,47 +125,30 @@ class _UploadScreenState extends State<UploadScreen> {
                 ),
               ),
               //파티 날짜
-              Row(
-                children: [
-                  Expanded(
-                    child: OutlinedButton(
-                      child: Container(
-                        alignment: Alignment.centerLeft,
-                        height: 40,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Text(
-                          _selectedDate == null
-                              ? '파티일자'
-                              : '{$_selectedDate}'.substring(1, 11),
-                          style: TextStyle(
-                            color: _selectedDate == null
-                                ? Colors.grey
-                                : Colors.black,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ),
-                      onPressed: () {
-                        Future<DateTime?> future = showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime.now(),
-                          lastDate: DateTime(2100),
-                        );
-
-                        future.then((date) {
-                          setState(() {
-                            _selectedDate = date;
-                          });
-                        });
-                      },
-                    ),
-                  ),
-                ],
-              ),
+              Row(children: [
+                DateTimePicker()
+                //   TextButton(
+                //       onPressed: () {
+                //         DatePicker.showDatePicker(context,
+                //             showTitleActions: true,
+                //             minTime: DateTime.now(),
+                //             maxTime: DateTime(2023, 12, 31), onChanged: (date) {
+                //           print('change $date');
+                //         }, onConfirm: (date) {
+                //           setState(() {
+                //             _selectedDate = date;
+                //           });
+                //         }, currentTime: DateTime.now(), locale: LocaleType.ko);
+                //       },
+                //       child: _selectedDate == null
+                //           ? const Text(
+                //               '시간을 정해주세요',
+                //               style: TextStyle(color: Colors.black),
+                //             )
+                //           : Text("$_selectedDate",
+                //               style: const TextStyle(color: Colors.black)))
+                // ]),
+              ]),
               const SizedBox(
                 height: 20,
               ),
@@ -334,86 +318,6 @@ class _UploadScreenState extends State<UploadScreen> {
   }
 }
 
-class Calendar extends StatefulWidget {
-  const Calendar({super.key, this.restorationId});
-
-  final String? restorationId;
-
-  @override
-  State<Calendar> createState() => _Calendar();
-}
-
-class _Calendar extends State<Calendar> with RestorationMixin {
-  // In this example, the restoration ID for the mixin is passed in through
-  // the [StatefulWidget]'s constructor.
-  @override
-  String? get restorationId => widget.restorationId;
-
-  final RestorableDateTime selectedDate =
-      RestorableDateTime(DateTime(2021, 7, 25));
-  late final RestorableRouteFuture<DateTime?> restorableDatePickerRouteFuture =
-      RestorableRouteFuture<DateTime?>(
-    onComplete: _selectDate,
-    onPresent: (NavigatorState navigator, Object? arguments) {
-      return navigator.restorablePush(
-        _datePickerRoute,
-        arguments: selectedDate.value.millisecondsSinceEpoch,
-      );
-    },
-  );
-
-  static Route<DateTime> _datePickerRoute(
-    BuildContext context,
-    Object? arguments,
-  ) {
-    return DialogRoute<DateTime>(
-      context: context,
-      builder: (BuildContext context) {
-        return DatePickerDialog(
-          restorationId: 'date_picker_dialog',
-          initialEntryMode: DatePickerEntryMode.calendarOnly,
-          initialDate: DateTime.fromMillisecondsSinceEpoch(arguments! as int),
-          firstDate: DateTime(2021),
-          lastDate: DateTime(2022),
-        );
-      },
-    );
-  }
-
-  @override
-  void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
-    registerForRestoration(selectedDate, 'selected_date');
-    registerForRestoration(
-        restorableDatePickerRouteFuture, 'date_picker_route_future');
-  }
-
-  void _selectDate(DateTime? newSelectedDate) {
-    if (newSelectedDate != null) {
-      setState(() {
-        selectedDate.value = newSelectedDate;
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(
-              'Selected: ${selectedDate.value.day}/${selectedDate.value.month}/${selectedDate.value.year}'),
-        ));
-      });
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: OutlinedButton(
-          onPressed: () {
-            restorableDatePickerRouteFuture.present();
-          },
-          child: const Text('Open Date Picker'),
-        ),
-      ),
-    );
-  }
-}
-
 class _Chip extends StatelessWidget {
   const _Chip({
     required this.label,
@@ -437,6 +341,174 @@ class _Chip extends StatelessWidget {
       onDeleted: () {
         onDeleted(index);
       },
+    );
+  }
+}
+
+class DateTimePicker extends StatefulWidget {
+  @override
+  _DateTimePickerState createState() => _DateTimePickerState();
+}
+
+class _DateTimePickerState extends State<DateTimePicker> {
+  String _date = "날짜를 정해주세요";
+  String _starttime = "시간을 정해주세요";
+  String _endtime = "시간을 정해주세요";
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        OutlinedButton(
+          onPressed: () {
+            DatePicker.showDatePicker(context,
+                theme: const DatePickerTheme(
+                  containerHeight: 210.0,
+                ),
+                showTitleActions: true,
+                minTime: DateTime.now(),
+                maxTime: DateTime(2023, 12, 31), onConfirm: (date) {
+              print('confirm $date');
+              _date = '${date.year} - ${date.month} - ${date.day}';
+              setState(() {});
+            }, currentTime: DateTime.now(), locale: LocaleType.ko);
+          },
+          child: Container(
+            alignment: Alignment.center,
+            height: 50.0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Container(
+                      child: Row(
+                        children: <Widget>[
+                          const Icon(
+                            Icons.date_range,
+                            size: 18.0,
+                            color: Colors.black,
+                          ),
+                          Text(
+                            " $_date",
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18.0),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 20.0,
+        ),
+        OutlinedButton(
+          onPressed: () {
+            DatePicker.showTimePicker(context,
+                theme: const DatePickerTheme(
+                  containerHeight: 210.0,
+                ),
+                showSecondsColumn: false,
+                showTitleActions: true, onConfirm: (time) {
+              print('confirm $time');
+              _starttime = '${time.hour} : ${time.minute}';
+              setState(() {});
+            }, currentTime: DateTime.now(), locale: LocaleType.ko);
+            setState(() {});
+          },
+          child: Container(
+            alignment: Alignment.center,
+            height: 50.0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    const Text("시작 시간"),
+                    Container(
+                      child: Row(
+                        children: <Widget>[
+                          const Icon(
+                            Icons.access_time,
+                            size: 18.0,
+                            color: Colors.black,
+                          ),
+                          Text(
+                            " $_starttime",
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18.0),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+        OutlinedButton(
+          onPressed: () {
+            DatePicker.showTimePicker(context,
+                theme: const DatePickerTheme(
+                  containerHeight: 210.0,
+                ),
+                showSecondsColumn: false,
+                showTitleActions: true, onConfirm: (time) {
+              print('confirm $time');
+              _endtime = '${time.hour} : ${time.minute}';
+              setState(() {});
+            }, currentTime: DateTime.now(), locale: LocaleType.ko);
+            setState(() {});
+          },
+          child: Container(
+            alignment: Alignment.center,
+            height: 50.0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    const Text("종료 시간"),
+                    Container(
+                      child: Row(
+                        children: <Widget>[
+                          const Icon(
+                            Icons.access_time,
+                            size: 18.0,
+                            color: Colors.black,
+                          ),
+                          Text(
+                            " $_endtime",
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18.0),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ),
+        )
+      ],
     );
   }
 }

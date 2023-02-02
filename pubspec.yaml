@@ -46,7 +46,7 @@ dependencies:
   #kakao_map_plugin: ^0.1.0
   kpostal: ^0.5.1
   url_launcher: ^6.1.8
-
+  flutter_datetime_picker: ^1.5.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
