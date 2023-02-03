@@ -1,11 +1,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:partyone/models/party_model.dart';
-import 'package:partyone/screens/setting_screen.dart';
-import 'package:partyone/services/api_service.dart';
-import 'package:partyone/widget/hash_tag.dart';
-import 'package:partyone/widget/party_card.dart';
+import 'package:partyone/party/domain/models/party_model.dart';
+import 'package:partyone/account/screens/setting_screen.dart';
+import 'package:partyone/party/domain/services/api_service.dart';
+import 'package:partyone/party/widgets/party_card.dart';
+import 'package:partyone/utils/widgets/hash_tag.dart';
 
 class UserScreen extends StatefulWidget {
   const UserScreen({super.key});

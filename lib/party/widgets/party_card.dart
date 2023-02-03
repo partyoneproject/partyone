@@ -1,7 +1,7 @@
 //PartyCard 하나
 import 'package:flutter/material.dart';
-import 'package:partyone/screens/party_detail.dart';
-import 'package:partyone/widget/hash_tag.dart';
+import 'package:partyone/party/screens/party_detail.dart';
+import 'package:partyone/utils/widgets/hash_tag.dart';
 
 class PartyCard extends StatelessWidget {
   final partyName;

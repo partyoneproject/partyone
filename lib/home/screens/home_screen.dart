@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:partyone/models/party_model.dart';
-import 'package:partyone/services/api_service.dart';
-import 'package:partyone/screens/notification_screen.dart';
-import 'package:partyone/widget/party_list.dart';
-import 'package:partyone/widget/share.dart';
+import 'package:partyone/party/domain/models/party_model.dart';
+import 'package:partyone/party/domain/services/api_service.dart';
+import 'package:partyone/party/widgets/party_list.dart';
+import 'package:partyone/account/screens/notification_screen.dart';
+import 'package:partyone/utils/widgets/share.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});

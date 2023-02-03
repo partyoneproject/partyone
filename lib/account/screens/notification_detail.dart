@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:partyone/models/announcement_data.dart';
+import 'package:partyone/account/domain/models/notification_data.dart';
 
-class AnnouncementDetail extends StatefulWidget {
+class NotificationDetail extends StatefulWidget {
   final int announcementId;
-  const AnnouncementDetail({
+  const NotificationDetail({
     super.key,
     required this.announcementId,
   });
 
   @override
-  State<AnnouncementDetail> createState() => _AnnouncementDetailState();
+  State<NotificationDetail> createState() => _NotificationDetailState();
 }
 
-class _AnnouncementDetailState extends State<AnnouncementDetail> {
+class _NotificationDetailState extends State<NotificationDetail> {
   late int idx;
   @override
   void initState() {
@@ -26,7 +26,7 @@ class _AnnouncementDetailState extends State<AnnouncementDetail> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
         centerTitle: true,
-        title: Text('${announcementData[idx]["Title"]}'),
+        title: Text('${notificationData[idx]["Title"]}'),
       ),
       body: Container(
         padding: const EdgeInsets.all(20),
@@ -34,17 +34,15 @@ class _AnnouncementDetailState extends State<AnnouncementDetail> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '${announcementData[idx]["When"]}',
+              '${notificationData[idx]["When"]}',
               style: const TextStyle(fontSize: 18),
             ),
             const SizedBox(
               height: 10,
             ),
             Text(
-              '${announcementData[idx]["contents"]}',
-              style: const TextStyle(
-                fontSize: 16,
-              ),
+              '${notificationData[idx]["contents"]}',
+              style: const TextStyle(fontSize: 16),
             ),
           ],
         ),

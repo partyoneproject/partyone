@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
-import 'package:partyone/screens/main_screen.dart';
+import 'package:partyone/home/main_screen.dart';
 //import 'package:kakao_map_plugin/kakao_map_plugin.dart';
 
 void main() {

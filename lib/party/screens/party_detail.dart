@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:partyone/screens/announcement.dart';
-import 'package:partyone/screens/member_preview.dart';
-import 'package:partyone/widget/kakao_map.dart';
-import 'package:partyone/widget/share.dart';
+import 'package:partyone/party/screens/announcement.dart';
+import 'package:partyone/party/screens/member_preview.dart';
+import 'package:partyone/utils/widgets/kakao_map.dart';
+import 'package:partyone/utils/widgets/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PartyDetail extends StatelessWidget {

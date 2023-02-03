@@ -1,20 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:partyone/models/notification_data.dart';
-import 'package:partyone/screens/notification_detail.dart';
+import 'package:partyone/party/domain/models/announcement_data.dart';
+import 'package:partyone/party/screens/announcement_detail.dart';
+import 'package:partyone/party/screens/create_announcement.dart';
 
-class NotificationScreen extends StatelessWidget {
-  const NotificationScreen({super.key});
+class Announcement extends StatelessWidget {
+  const Announcement({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const CreateAnnouncement(),
+          ),
+        ),
+        child: const Icon(Icons.add),
+      ),
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
         centerTitle: true,
-        title: const Text('공지 알람'),
+        title: const Text('공지사항'),
       ),
       body: ListView.builder(
-        itemCount: notificationData.length,
+        itemCount: announcementData.length,
         padding: const EdgeInsets.all(8),
         itemBuilder: (BuildContext context, int index) {
           return Container(
@@ -27,7 +37,7 @@ class NotificationScreen extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) =>
-                        NotificationDetail(announcementId: index),
+                        AnnouncementDetail(announcementId: index),
                   ),
                 ),
                 child: Row(
@@ -38,7 +48,7 @@ class NotificationScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '${notificationData[index]["Title"]}',
+                          '${announcementData[index]["Title"]}',
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -47,10 +57,10 @@ class NotificationScreen extends StatelessWidget {
                         const SizedBox(
                           height: 10,
                         ),
-                        shortenText2(index),
+                        shortenText(index),
                       ],
                     ),
-                    Text('${notificationData[index]["When"]}')
+                    Text('${announcementData[index]["When"]}')
                   ],
                 ),
               )
@@ -64,12 +74,12 @@ class NotificationScreen extends StatelessWidget {
   }
 }
 
-Text shortenText2(index) {
-  if (notificationData[index]["contents"].length < 25) {
-    return Text('${notificationData[index]["contents"]}');
+Text shortenText(index) {
+  if (announcementData[index]["contents"].length < 25) {
+    return Text('${announcementData[index]["contents"]}');
   } else {
     return Text(
-      '${'${notificationData[index]["contents"]}'.substring(0, 22)}...',
+      '${'${announcementData[index]["contents"]}'.substring(0, 22)}...',
     );
   }
 }

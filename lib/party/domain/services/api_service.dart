@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:partyone/models/party_model.dart';
+import 'package:partyone/party/domain/models/party_model.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
