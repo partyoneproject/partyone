@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:partyone/screens/tab_screen/home_screen.dart';
-import 'package:partyone/screens/tab_screen/message_screen.dart';
-import 'package:partyone/screens/tab_screen/search_screen.dart';
-import 'package:partyone/screens/tab_screen/upload_screen.dart';
-import 'package:partyone/screens/tab_screen/user_screen.dart';
+import 'package:partyone/home/screens/home_screen.dart';
+import 'package:partyone/home/screens/message_screen.dart';
+import 'package:partyone/home/screens/search_screen.dart';
+import 'package:partyone/home/screens/upload_screen.dart';
+import 'package:partyone/home/screens/user_screen.dart';
 
 // 바텀 내비게이션바가 있는 뼈대 스크린
 class MainScreen extends StatefulWidget {

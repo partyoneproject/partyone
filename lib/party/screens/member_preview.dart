@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:partyone/widget/member_card.dart';
+import 'package:partyone/party/widgets/member_card.dart';
 
 class MemberPreview extends StatelessWidget {
   const MemberPreview({super.key});

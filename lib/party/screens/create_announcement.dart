@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:partyone/models/announcement_data.dart';
-import 'package:partyone/screens/announcement.dart';
+import 'package:partyone/party/domain/models/announcement_data.dart';
+import 'package:partyone/party/screens/announcement.dart';
 
 class CreateAnnouncement extends StatefulWidget {
   const CreateAnnouncement({super.key});

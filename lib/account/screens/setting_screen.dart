@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:partyone/screens/notification_screen.dart';
+import 'package:partyone/account/screens/notification_screen.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});

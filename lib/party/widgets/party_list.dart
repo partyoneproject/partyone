@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:partyone/models/party_model.dart';
-import 'package:partyone/widget/party_card.dart';
+import 'package:partyone/party/domain/models/party_model.dart';
+import 'package:partyone/party/widgets/party_card.dart';
 
 // party card들을 보는 리스트
 ListView makePartyList(AsyncSnapshot<List<PartyModel>> snapshot) {

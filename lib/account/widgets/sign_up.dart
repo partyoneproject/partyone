@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:partyone/screens/tab_screen/home_screen.dart';
+import 'package:partyone/home/screens/home_screen.dart';
 
 class SchoolCertificationScreen extends StatelessWidget {
   TextEditingController emailController = TextEditingController();

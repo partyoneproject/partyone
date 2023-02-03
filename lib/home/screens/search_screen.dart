@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:partyone/widget/party_card.dart';
+import 'package:partyone/party/widgets/party_card.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
