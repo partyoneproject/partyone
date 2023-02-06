@@ -110,6 +110,32 @@ class HomeScreen extends StatelessWidget {
                 ),
               ],
             ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    "관심있는 파티",
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+                  ),
+                ),
+                SizedBox(
+                  height: 280,
+                  child: FutureBuilder(
+                    future: myparties,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return makePartyList(snapshot);
+                      }
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
             /* 
             Freinds Party
             */

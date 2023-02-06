@@ -2,8 +2,11 @@ import 'dart:convert';
 
 import 'package:partyone/party/domain/models/party_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:partyone/server_adress.dart';
 
 class ApiService {
+  static String partyoneUrl = serverUrl;
+
   static const String baseUrl =
       "https://32979dcf-bf13-4289-bbfa-a87636766b6b.mock.pstmn.io";
   static Future<List<PartyModel>> getParties() async {
@@ -23,5 +26,12 @@ class ApiService {
       return partyInstances;
     }
     throw Error;
+  }
+
+  static Future<void> postParty(data) async {
+    final url = Uri.parse(("$partyoneUrl/party"));
+    http.Response res = await http.post(url, body: {data: data});
+
+    return;
   }
 }
