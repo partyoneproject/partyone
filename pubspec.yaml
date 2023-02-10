@@ -47,6 +47,7 @@ dependencies:
   kpostal: ^0.5.1
   url_launcher: ^6.1.8
   flutter_datetime_picker: ^1.5.1
+  flutter_time_picker_spinner: ^2.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -90,23 +91,23 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-      - family: Humanbumseok
-        fonts:
-          - asset : assets/fonts/Humanbumseok-Regular.ttf
-          - asset : assets/fonts/Humanbumseok-SemiBold.ttf
-            weight : 700
-          - asset : assets/fonts/Humanbumseok-Light.ttf
-            weight : 300
-      - family: SimKyungha
-        fonts:
-          - asset : assets/fonts/SimKyungha.ttf
-      - family: NanumSquareNeo
-        fonts:
-          - asset : assets/fonts/NanumSquareNeo-bRg.ttf
-          - asset : assets/fonts/NanumSquareNeo-cBd.ttf
-            weight : 700
-          - asset : assets/fonts/NanumSquareNeo-aLt.ttf
-            weight : 300
+    - family: Humanbumseok
+      fonts:
+        - asset: assets/fonts/Humanbumseok-Regular.ttf
+        - asset: assets/fonts/Humanbumseok-SemiBold.ttf
+          weight: 700
+        - asset: assets/fonts/Humanbumseok-Light.ttf
+          weight: 300
+    - family: SimKyungha
+      fonts:
+        - asset: assets/fonts/SimKyungha.ttf
+    - family: NanumSquareNeo
+      fonts:
+        - asset: assets/fonts/NanumSquareNeo-bRg.ttf
+        - asset: assets/fonts/NanumSquareNeo-cBd.ttf
+          weight: 700
+        - asset: assets/fonts/NanumSquareNeo-aLt.ttf
+          weight: 300
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf

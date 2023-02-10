@@ -28,10 +28,13 @@ class ApiService {
     throw Error;
   }
 
-  static Future<void> postParty(data) async {
-    final url = Uri.parse(("$partyoneUrl/party"));
-    http.Response res = await http.post(url, body: {data: data});
+  // static Future<void> postParty(data) async {
+  //   final url = Uri.parse(("$partyoneUrl/party"));
 
-    return;
-  }
+  //   var request = http.MultipartRequest('POST', url);
+  //   request.fields[''] =
+  //   //http.Response res = await http.post(url, body: {data: data});
+
+  //   return;
+  // }
 }

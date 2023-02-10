@@ -64,10 +64,11 @@ class _UserScreenState extends State<UserScreen> with TickerProviderStateMixin {
         handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
         sliver: SliverPersistentHeader(
           pinned: true,
+          floating: true,
           delegate: SliverHeaderDelegateCS(
             minHeight: sliverMinHeight,
             maxHeight: sliverMaxHeight,
-            minChild: minTopChild(),
+            minChild: Container(child: const Text("이상민님 HI")),
             maxChild: topChild(),
           ),
         ),
@@ -273,65 +274,78 @@ class _UserScreenState extends State<UserScreen> with TickerProviderStateMixin {
   }
 
   Widget mainPageView() {
-    return PageView(
-      controller: pageController,
-      children: <Widget>[
-        pageItem(
-          CustomScrollView(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              slivers: [
-                SliverGrid(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    //     widget.categoryVariables[widget.partyCategory]!["crossAxisCount"]!,
-                    mainAxisExtent: 256,
-                  ),
-                  delegate: SliverChildBuilderDelegate(
-                    childCount: data.length,
-                    (BuildContext context, int index) {
-                      return PartyCard(
-                          //widget.categoryVariables[widget.partyCategory]!["aspectRatio"],
-                          partyName: data[index]["Name"],
-                          partyWhen: data[index]["When"],
-                          partyWhere: data[index]["Where"],
-                          partyImage: data[index]["img"]);
-                    },
-                  ),
-                ),
-              ]),
-        ),
-        pageItem(CustomScrollView(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            slivers: [
-              SliverGrid(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  //     widget.categoryVariables[widget.partyCategory]!["crossAxisCount"]!,
-                  mainAxisExtent: 256,
-                ),
-                delegate: SliverChildBuilderDelegate(
-                  childCount: data.length,
-                  (BuildContext context, int index) {
-                    return PartyCard(
-                        //widget.categoryVariables[widget.partyCategory]!["aspectRatio"],
-                        partyName: data[index]["Name"],
-                        partyWhen: data[index]["When"],
-                        partyWhere: data[index]["Where"],
-                        partyImage: data[index]["img"]);
-                  },
-                ),
+    return Column(
+      children: [
+        minTopChild(),
+        Expanded(
+          child: PageView(
+            controller: pageController,
+            children: <Widget>[
+              pageItem(
+                CustomScrollView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    slivers: [
+                      SliverGrid(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          //     widget.categoryVariables[widget.partyCategory]!["crossAxisCount"]!,
+                          mainAxisExtent: 256,
+                        ),
+                        delegate: SliverChildBuilderDelegate(
+                          childCount: data.length,
+                          (BuildContext context, int index) {
+                            return PartyCard(
+                              //widget.categoryVariables[widget.partyCategory]!["aspectRatio"],
+                              partyName: data[index]["Name"],
+                              partyWhen: data[index]["When"],
+                              partyWhere: data[index]["Where"],
+                              partyImage: data[index]["img"],
+                              view_direction: "horizontal",
+                            );
+                          },
+                        ),
+                      ),
+                    ]),
               ),
-            ])),
-        pageItem(const Center(
-          child: Text("page 3"),
-        )),
-        pageItem(const Center(
-          child: Text("page 4"),
-        )),
+              pageItem(CustomScrollView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  slivers: [
+                    SliverGrid(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        //     widget.categoryVariables[widget.partyCategory]!["crossAxisCount"]!,
+                        mainAxisExtent: 256,
+                      ),
+                      delegate: SliverChildBuilderDelegate(
+                        childCount: data.length,
+                        (BuildContext context, int index) {
+                          return PartyCard(
+                            //widget.categoryVariables[widget.partyCategory]!["aspectRatio"],
+                            partyName: data[index]["Name"],
+                            partyWhen: data[index]["When"],
+                            partyWhere: data[index]["Where"],
+                            partyImage: data[index]["img"],
+                            view_direction: "horizontal",
+                          );
+                        },
+                      ),
+                    ),
+                  ])),
+              pageItem(const Center(
+                child: Text("page 3"),
+              )),
+              pageItem(const Center(
+                child: Text("page 4"),
+              )),
+            ],
+            onPageChanged: (index) => setState(() => pageIndex = index),
+          ),
+        ),
       ],
-      onPageChanged: (index) => setState(() => pageIndex = index),
     );
   }
 
