@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:partyone/account/screens/notification_screen.dart';
 import 'package:partyone/party/domain/models/party_model.dart';
 import 'package:partyone/party/domain/services/api_service.dart';
 import 'package:partyone/party/widgets/party_list.dart';
-import 'package:partyone/account/screens/notification_screen.dart';
 import 'package:partyone/utils/widgets/share.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -51,12 +51,14 @@ class HomeScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             /* 
             My Party
             */
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 const Padding(
                   padding: EdgeInsets.all(8.0),
@@ -66,12 +68,12 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 280,
+                  height: MediaQuery.of(context).size.height / 1.5,
                   child: FutureBuilder(
                     future: myparties,
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
-                        return makePartyList(snapshot);
+                        return makePartyVerticalList(snapshot);
                       }
                       return const Center(
                         child: CircularProgressIndicator(),
@@ -82,36 +84,11 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
             /* 
-            Invited Party
+            Interested Party
             */
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    "초대받은 파티",
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
-                  ),
-                ),
-                SizedBox(
-                  height: 280,
-                  child: FutureBuilder(
-                    future: myparties,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return makePartyList(snapshot);
-                      }
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 const Padding(
                   padding: EdgeInsets.all(8.0),
@@ -121,41 +98,12 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 280,
+                  height: MediaQuery.of(context).size.height - 120,
                   child: FutureBuilder(
                     future: myparties,
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
-                        return makePartyList(snapshot);
-                      }
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-            /* 
-            Freinds Party
-            */
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    "친구 파티",
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
-                  ),
-                ),
-                SizedBox(
-                  height: 280,
-                  child: FutureBuilder(
-                    future: myparties,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return makePartyList(snapshot);
+                        return makePartyHorizontalList(snapshot);
                       }
                       return const Center(
                         child: CircularProgressIndicator(),
