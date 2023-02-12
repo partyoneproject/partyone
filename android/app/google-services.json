@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1090548687804",
+    "project_id": "partyone-376da",
+    "storage_bucket": "partyone-376da.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1090548687804:android:2830bf87601df5237981b9",
+        "android_client_info": {
+          "package_name": "com.example.partyone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1090548687804-0as7tuum2vc8qpl7nh4k5ksre5nnso53.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfd9MC85vQ_y3SKbca4l881dE8RxiWxME"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1090548687804-0as7tuum2vc8qpl7nh4k5ksre5nnso53.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1090548687804-loveph5u7a3fold4r37f08pnttas7cp3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.partyone"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

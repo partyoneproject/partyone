@@ -4,6 +4,7 @@ import 'package:partyone/party/domain/models/party_model.dart';
 import 'package:partyone/party/domain/services/api_service.dart';
 import 'package:partyone/party/widgets/party_list.dart';
 import 'package:partyone/utils/widgets/share.dart';
+import 'package:proste_route_animation/proste_route_animation.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -22,11 +23,15 @@ class HomeScreen extends StatelessWidget {
           InkWell(
             onTap: () => {
               Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const NotificationScreen(),
-                ),
-              ),
+                  context,
+                  ProsteRouteAnimation.slideRoute(
+                    route: const NotificationScreen(),
+                    mode: ProsteSlideMode.fromRight,
+                    duration: const Duration(milliseconds: 200),
+                    reverseDuration: const Duration(milliseconds: 200),
+                    useFade: true,
+                    curve: Curves.linear,
+                  ))
             },
             child: const Icon(
               Icons.notification_important_outlined,
