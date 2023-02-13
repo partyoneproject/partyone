@@ -26,6 +26,7 @@ class HomeScreen extends StatelessWidget {
                   context,
                   ProsteRouteAnimation.slideRoute(
                     route: const NotificationScreen(),
+                    // NotificationScreen
                     mode: ProsteSlideMode.fromRight,
                     duration: const Duration(milliseconds: 200),
                     reverseDuration: const Duration(milliseconds: 200),
